@@ -22,7 +22,7 @@ The provided DBT project includes:
 - A seed CSV file representing data of movies provided by IMDB (see `seeds/imdb-movies.yml`)
 - Models for feeding the tables `movie` and `projection` of the ODS, which is initially empty (see `.sql` files in `models/ods`).
 
-Models for feeding the ticket table of the ODS are provied in branch `ods-model` of this repo.
+Models for feeding the `ticket` table of the ODS are provied in branch `ods-tickets` of this repo.
 
 
 ## How to setup the project
