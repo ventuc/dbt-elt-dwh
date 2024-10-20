@@ -20,9 +20,9 @@ The provided DBT project includes:
 - The definition of a profile defining a target which points to the DuckDB dwh database (see `profile.yml`)
 - The defition of sources (see `sources.yml`)
 - A seed CSV file representing data of movies provided by IMDB (see `seeds/imdb-movies.yml`)
-- Models for feeding the movie table of the ODS, which is initially empty (see `.sql` files in `models/ods`).
+- Models for feeding the tables `movie` and `projection` of the ODS, which is initially empty (see `.sql` files in `models/ods`).
 
-Models for feeding the ticket table of the ODS are provied in branch `ticket-models` of this repo.
+Models for feeding the ticket table of the ODS are provied in branch `ods-model` of this repo.
 
 
 ## How to setup the project
@@ -50,7 +50,7 @@ Models for feeding the ticket table of the ODS are provied in branch `ticket-mod
 
 ## How to run DBT
 
-You can run the the provided DBT project straightaway, in order to see how DBT populates (incrementally) the `main_ods.movie` table.
+You can run the the provided DBT project straightaway, in order to see how DBT populates (incrementally) the `main_ods.movie` and `main_ods.projection` tables.
 
 Afterwards you can develop other models for populating other tables.
 
