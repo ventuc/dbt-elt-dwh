@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: scheduling_system
+    database: dwh
+    schema: staging_scheduling_system
+    tables:
+      - name: cinema
+      - name: movie
+      - name: projection
+      - name: screen
+  
+  - name: booking_system
+    database: dwh
+    schema: staging_booking_system
+    tables:
+      - name: invoice
+      - name: payment
+      - name: point_of_sale
+      - name: ticket
