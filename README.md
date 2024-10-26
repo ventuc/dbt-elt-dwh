@@ -20,7 +20,9 @@ The provided DBT project includes:
 - The defition of sources (see `sources.yml`)
 - A seed CSV file representing data of movies provided by IMDB (see `seeds/imdb-movies.yml`)
 - Models for feeding the tables of the ODS, which are provided only for reference, as they're already populated
-- A model for feeding the `movie` dimension table of the databart, which is initially empty (see `datamart_movie.sql` in `models/datamart`).
+- Two models for feeding the following dimension tables of the databart, which is initially empty (see `datamart_movie.sql` in `models/datamart`):
+    -  `movie`
+    -  `cinema`
 
 Models for feeding the dimension table `screen` and the fact table `sale` of the datamart are provied in branch `datamart-models` of this repo.
 
