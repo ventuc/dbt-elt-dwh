@@ -1,9 +1,9 @@
 /*
     Transformation of projections
 */
--- depends_on: {{ ref('movie') }}
+-- depends_on: {{ ref('ods_movie') }}
 
-{{ config(materialized='incremental', unique_key=['show_nr']) }}
+{{ config(materialized='incremental', unique_key=['show_nr'], alias="projection") }}
 
 SELECT *
 FROM {{ source('scheduling_system', 'projection') }}
