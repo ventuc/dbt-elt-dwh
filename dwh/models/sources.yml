@@ -18,3 +18,16 @@ sources:
       - name: payment
       - name: point_of_sale
       - name: ticket
+  - name: ods
+    database: dwh
+    schema: main_ods
+    tables:
+      - name: cinema
+      - name: screen
+      - name: movie
+      - name: distribution_company
+      - name: projection
+      - name: point_of_sale
+      - name: person
+      - name: role
+      - name: ticket

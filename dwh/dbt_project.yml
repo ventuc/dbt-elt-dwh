@@ -33,6 +33,12 @@ models:
     +materialized: view
     ods:
       +schema: ods
+    datamart:
+      +schema: datamart
+      +pre-hook:
+        - "CREATE TABLE IF NOT EXISTS last_execution_times (target_table VARCHAR(255) NOT NULL PRIMARY KEY, time DATETIME NOT NULL)"
+      +post-hook:
+        - "INSERT INTO last_execution_times (target_table, time) VALUES ('{{ this.identifier }}', '{{ run_started_at }}') ON CONFLICT DO UPDATE SET time = EXCLUDED.time"
 
 seeds:
   dwh:
