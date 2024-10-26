@@ -3,7 +3,7 @@
     Transform tickets loaded from the Booking System to align the schema to that of the ODS
 */
 
-{{ config(materialized='ephemeral') }}
+{{ config(materialized='ephemeral', alias='ticket_transform') }}
 
 SELECT
     t.serial_nr,
