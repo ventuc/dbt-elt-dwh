@@ -1,7 +1,7 @@
 
 /*
-    Incrementally select screens from the ODS and insert into the
-    screen dimension table generating any necessary surrogate key
+    Incrementally select screens loaded from the ODS and insert them into
+    the screen dimension table generating any necessary surrogate key
 */
 
 {{ config(materialized='incremental', unique_key=['key'], alias='screen') }}
@@ -12,24 +12,18 @@
 
 {% do run_query(initialize) %}
 
--- 1.	Convert natural keys of cinemas into the corresponding surrogate keys. The cinema
---		dimension table is a type 2 SCD, thus there can be multiple surrogate keys for
---		every natural key: in this case, only consider the greatest, as it's the key of
---		the most up to date record
--- 2.	Alignes the schema to the one of the data mart dimension table
--- 3.	Lookup the surrogate key for each screen and generated new ones for screens to be
---		inserted into the dimension table
-SELECT
-	IFNULL(target.key, NEXTVAL('screen_seq')) AS key,
-	s.id AS screen_id,
-    s.seats AS screen_seats,
-    s.name AS screen_name,
-    MAX(c.key) as cinema_key
-FROM {{ source("ods", "screen") }} AS s
-	INNER JOIN cinema AS c ON c.code = s.cinema_code
 
+SELECT
+	IFNULL(target.key, NEXTVAL('screen_seq')) AS key, -- If a surrogate key is not found, generate a new one
+	s.screen_id,
+    s.screen_seats,
+    s.screen_name,
+    s.cinema_key
+FROM {{ ref("dm_screen_fk_lookup") }} AS s
+    -- Lookup the surrogate key for each screen
+    LEFT JOIN {{ this }} AS target ON s.screen_id = target.screen_id
+
+-- Select from the ODS only records that have been inserted/modified after the last execution of the process
 {% if is_incremental() %}
 WHERE s.update_time > (SELECT COALESCE(MAX(time), '1900-01-01 00:00:00') FROM last_execution_times WHERE target_table = '{{ this.identifier }}')
 {% endif %}
-
-GROUP BY s.id, s.seats, s.name
