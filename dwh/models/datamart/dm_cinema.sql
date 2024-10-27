@@ -1,6 +1,6 @@
 
 /*
-    Incrementally select cinemas from the ODS and insert into the
+    Incrementally select cinemas from the ODS and insert them into the
     cinema dimension table generating any necessary surrogate key
 */
 

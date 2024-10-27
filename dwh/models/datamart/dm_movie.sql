@@ -1,6 +1,6 @@
 
 /*
-    Incrementally select movies from the ODS and insert into the
+    Incrementally select movies from the ODS and insert them into the
     movie dimension table generating any necessary surrogate key
 */
 
