@@ -14,7 +14,7 @@ SELECT
 	dt_channel.key AS sale_channel_key,
 	dt_movie.key AS movie_key,
 	dt_show.key AS show_key,
-	0 AS actors_cast_key,
+	0 AS actors_cast_key, -- Fix 0 as key because for the sake of simplicity the processes for loading actors has not been implemented
 	e.price
 FROM {{ ref("dm_sale_extract") }} AS e
 	INNER JOIN {{ this.schema}}."show" AS dt_show ON dt_show.code = e.show_nr
