@@ -9,7 +9,7 @@
 
 SELECT
 	e.serial_nr,
-	DATE_TRUNC('day', e.issue_time) as sale_date,
+	CAST(e.issue_time AS DATE) as sale_date,
 	MAX(dt_screen.key) AS screen_key,
 	dt_channel.key AS sale_channel_key,
 	dt_movie.key AS movie_key,
