@@ -17,7 +17,7 @@ SELECT
 	0 AS actors_cast_key, -- Fix 0 as key because for the sake of simplicity the processes for loading actors has not been implemented
 	e.price
 FROM {{ ref("dm_sale_extract") }} AS e
-	INNER JOIN {{ this.schema}}."show" AS dt_show ON dt_show.code = e.show_nr
+	INNER JOIN {{ ref("dm_show") }} AS dt_show ON dt_show.code = e.show_nr
 	INNER JOIN {{ ref("dm_screen") }} AS dt_screen ON dt_screen.screen_id = e.screen_id
 	INNER JOIN {{ ref("dm_movie") }} AS dt_movie ON dt_movie.movie_id = e.movie_id
 	INNER JOIN {{ this.schema}}.sale_channel AS dt_channel ON dt_channel.channel_id = e.point_of_sale_id
