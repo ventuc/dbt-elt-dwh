@@ -4,13 +4,11 @@
     show dimension table generating any necessary surrogate key
 */
 
-{{ config(materialized='incremental', unique_key=['key'], alias='show') }}
-{% set initialize %}
-    -- Create a sequence to generate incremental surrogate keys
-    CREATE SEQUENCE IF NOT EXISTS show_seq;
-{% endset %}
+{{ config(
+	materialized='incremental', unique_key=['key'], alias='show',
+	pre_hook="CREATE SEQUENCE IF NOT EXISTS show_seq;"
+) }}
 
-{% do run_query(initialize) %}
 
 SELECT
     IFNULL(target.key, NEXTVAL('show_seq')) AS key,

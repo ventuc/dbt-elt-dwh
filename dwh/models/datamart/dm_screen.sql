@@ -4,13 +4,10 @@
     the screen dimension table generating any necessary surrogate key
 */
 
-{{ config(materialized='incremental', unique_key=['key'], alias='screen') }}
-{% set initialize %}
-    -- Create a sequence to generate incremental surrogate keys
-    CREATE SEQUENCE IF NOT EXISTS screen_seq;
-{% endset %}
-
-{% do run_query(initialize) %}
+{{ config(
+    materialized='incremental', unique_key=['key'], alias='screen',
+    pre_hook="CREATE SEQUENCE IF NOT EXISTS screen_seq;"
+) }}
 
 
 SELECT

@@ -4,13 +4,11 @@
     cinema dimension table generating any necessary surrogate key
 */
 
-{{ config(materialized='incremental', unique_key=['key'], alias='cinema') }}
-{% set initialize %}
-    -- Create a sequence to generate incremental surrogate keys
-    CREATE SEQUENCE IF NOT EXISTS cinema_seq;
-{% endset %}
+{{ config(
+    materialized='incremental', unique_key=['key'], alias='cinema',
+    pre_hook="CREATE SEQUENCE IF NOT EXISTS cinema_seq;"
+) }}
 
-{% do run_query(initialize) %}
 
 SELECT
     IFNULL(target.key, NEXTVAL('cinema_seq')) AS key,
