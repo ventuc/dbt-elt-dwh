@@ -4,13 +4,11 @@
     sale channel dimension table generating any necessary surrogate key
 */
 
-{{ config(materialized='incremental', unique_key=['key'], alias='sale_channel') }}
-{% set initialize %}
-    -- Create a sequence to generate incremental surrogate keys
-    CREATE SEQUENCE IF NOT EXISTS sale_channel_seq;
-{% endset %}
+{{ config(
+    materialized='incremental', unique_key=['key'], alias='sale_channel',
+    pre_hook="CREATE SEQUENCE IF NOT EXISTS sale_channel_seq;"
+) }}
 
-{% do run_query(initialize) %}
 
 SELECT
     IFNULL(target.key, NEXTVAL('sale_channel_seq')) AS key,
